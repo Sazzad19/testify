@@ -1,0 +1,18 @@
+.option-container{
+    
+    border: 1px solid gray;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: rgb(38, 38, 38);
+    color: rgb(244, 237, 237);
+    cursor: pointer;
+}
+.option-container input{
+    cursor: pointer;
+}
+
+.option-container:hover{
+    background-color: rgb(66, 63, 63);
+}
+

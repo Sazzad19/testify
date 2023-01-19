@@ -1,0 +1,52 @@
+.cart-container{
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+.cart-logo{
+    background-color: rgb(199, 231, 244);
+    width: 200px;
+    border-radius: 8px;
+}
+
+.cart-logo img{
+    width: 200px;
+    border-radius: 8px;
+
+}  
+.cart-details{
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+}
+.cart-details p{
+ margin-top: 10px;
+}
+.practice-btn{
+    background-color: rgb(3, 145, 228);
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+}
+.practice-btn:hover{
+    background-color: rgb(8, 92, 141);
+}
+
+@media screen and (min-width: 700px)  and (max-width: 900px){
+    .cart-container{
+        flex-direction: column;
+    }
+
+    .cart-logo{
+        width: 100%;
+    }
+    .cart-logo img{
+        width: 100%;
+    }
+}
