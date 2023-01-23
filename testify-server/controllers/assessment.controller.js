@@ -5,11 +5,11 @@ const Op = db.Sequelize.Op;
 
 
 exports.create = (req, res) => {
-    Assessment.create({...req.body, questions: req.body.questions}).then(assessment => {
-        // const questions = req.body.questions;
-        // questions.forEach(async question =>{
-        //     await  Question.create(question)
-        // })
+    Assessment.create({...req.body, UserId: req.user.id}).then(assessment => {
+        const questions = req.body.questions;
+        questions.forEach(async question => {
+            await  Question.create({...question, AssessmentId: assessment.id })
+        })
         res.send(assessment)
     }).catch(error =>{
         res.status(500).send({
