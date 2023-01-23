@@ -6,8 +6,9 @@ const QuizCart = ({cart}) => {
     const {name, id, logo,total} = cart;
     return (
         <div className='cart-container'>
-            <div className='cart-logo'>
-                <img src={logo} alt="" />
+            <div className='cart-logo d-flex align-items-center justify-content-center p-2'>
+                {/* <img src={logo} alt="" /> */}
+                <h2>{name}</h2>
             </div>
             <div className='cart-details'>
                 <div>

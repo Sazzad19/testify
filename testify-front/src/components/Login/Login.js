@@ -3,6 +3,30 @@ import { Link } from 'react-router-dom';
 import './Login.css'
 
 const Login = () => {
+    const handleSubmit = (event)=>{
+        event.preventDefault();
+    
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        const loginInfo = {
+          email,
+          password,
+      }
+    
+      fetch('http://localhost:5000/api/signin',{
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(loginInfo)
+    })
+    .then(res => res.json())
+    .then(data =>{
+       console.log(data)
+        
+    })
+      }
     return (
         <div className="wrapper">
         <div className="logo-login">
@@ -11,7 +35,7 @@ const Login = () => {
         <div className="text-center name">
         <h4 className=''>Testify</h4>
         </div>
-        <form className="p-3 mt-3">
+        <form onSubmit={handleSubmit} className="p-3 mt-3">
             <div className="form-field">
                   <svg
             xmlns="http://www.w3.org/2000/svg"

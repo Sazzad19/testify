@@ -1,14 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Form from 'react-bootstrap/Form'
 
 const SignUp = () => {
+const [classNumber, setClassNumber] = useState('');
+
+
+
+  const handleSubmit = (event)=>{
+    event.preventDefault();
+
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const classNumber = form.classNumber.value;
+    const type = form.role.value;
+    
+    const allUserInfo = {
+      name,
+      email,
+      password,
+      classNumber,
+      type
+  }
+
+//   fetch('http://localhost:5000/api/signup',{
+//     method: 'POST',
+//     headers: {
+//         'content-type': 'application/json'
+//     },
+//     body: JSON.stringify(allUserInfo)
+// })
+// .then(res => res.json())
+// .then(data =>{
+//    alert('Add data successfully');
+//    console.log(data)
+    
+// })
+  }
+
+  const optionSelect = (event)=>{
+    event.preventDefault();
+    setClassNumber(event.target.value);
+  }
   return (
     <div className="wrapper">
       <div className="logo-login">
       <img src="https://www.freepnglogos.com/uploads/lamp/lamp-logo-mpada-luz-brilho-imagens-tis-pixabay-0.png" alt=""/>
       </div>
       <div className="text-center mt-4 name"><h4 className=''>Testify</h4></div>
-      <form className="p-3 mt-3">
+      <form onSubmit={handleSubmit} className="p-3 mt-3">
         <div className="form-field">
           <span className="far fa-user"></span>
           <input type="text" name="name" id="name" placeholder="Your Name" />
@@ -35,6 +77,21 @@ const SignUp = () => {
             placeholder="Password"
           />
         </div>
+        <Form.Group  className="mb-3 ">
+        {/* <Form.Label>Select Type</Form.Label> */}
+        <Form.Select name='role'  onInput={(event)=>optionSelect(event)} className="form-field">
+        <option value='null'>Select Role</option>
+        <option   value='teacher'>Teacher</option>
+        <option value='student'>Student</option>
+        </Form.Select>
+        </Form.Group>
+        {
+            classNumber === 'student' &&  <div className="form-field">
+            <span className="far fa-user"></span>
+            <input type="text" name="classNumber" id="classNumber" placeholder="Class Number" />
+          </div>
+        }
+       
         <button className="btn mt-3">Sign Up</button>
       </form>
       <div className="text-center fs-6">

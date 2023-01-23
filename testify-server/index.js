@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require("cors");
+const port= process.env.PORT || 5000;
 require("dotenv")
   .config();
 
@@ -15,4 +16,4 @@ app.get('/', (req, res) => {
   res.send('Successful response.');
 });
 app.use('/api', routes);
-app.listen(3000, () => console.log('Example app is listening on port 3000.'));
+app.listen(port, ()=> console.log(`book bazar server port ${port}`));

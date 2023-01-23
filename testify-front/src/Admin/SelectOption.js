@@ -23,7 +23,6 @@ const SelectOption = ({optionSelect, index}) => {
               <option>Open this select menu</option>
               <option value="MCQ">Multiple Question</option>
               <option value="FIG">Fill in the gap</option>
-              <option value="FS">File Submission</option>
             </Form.Select>
           </FloatingLabel>
         </Col>

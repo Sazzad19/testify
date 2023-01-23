@@ -10,7 +10,7 @@ const FileUpload = ({handleInput, index}) => {
         <div className='my-3'>
              <Row>
               <div className="form-outline w-100 mb-2 mt-3">
-              <label className="form-label fw-bold" htlmfor="textAreaExample6">{index+1}. File Submission</label>
+              <label className="form-label fw-bold" htlmfor="textAreaExample6">{index+1}. Question</label>
              <textarea
               className="form-control bg-light" 
               id="textAreaExample6"
@@ -24,7 +24,7 @@ const FileUpload = ({handleInput, index}) => {
         
      </Row>
      <Row>
-      <Col>
+      {/* <Col>
       <div className="form-outline  mb-2 mt-3">
               <label className="form-label fw-bold" htlmfor="textAreaExample6">Correct Answer</label>
              <textarea
@@ -36,10 +36,10 @@ const FileUpload = ({handleInput, index}) => {
               placeholder='write your question'>
               </textarea>
            </div>
-      </Col>
+      </Col> */}
       <Col>
       <div className="form-outline w-50 mb-2 mt-3">
-              <label className="form-label fw-bold" htlmfor="textAreaExample6">Question Mark</label>
+              <label className="form-label fw-bold" htlmfor="textAreaExample6">Mark</label>
              <textarea
               className="form-control bg-light" 
               id="textAreaExample6"

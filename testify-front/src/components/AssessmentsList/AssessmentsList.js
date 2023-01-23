@@ -1,5 +1,6 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
+import Test from '../../Admin/Test';
 
 const AssessmentsList = () => {
     return (
@@ -41,6 +42,8 @@ const AssessmentsList = () => {
       </tbody>
     </Table>
            </div>
+
+           <Test></Test>
         </div>
     );
 };
