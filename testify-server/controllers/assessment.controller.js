@@ -20,7 +20,27 @@ exports.create = (req, res) => {
 }
 
 exports.findAll = (req, res) => {
-    Assessment.findAll().then(data => {
+    const condition = {};
+    if(req.user && req.user.type === 'teacher'){
+        condition.UserId = req.user.id;
+    }else if(req.user && req.user.type === 'student'){
+        condition.class = req.user.class;
+    }
+    Assessment.findAll({where: condition}).then(data => {
+        res.send(data)
+    }).catch(error =>{
+        res.status(500).send({
+            message:
+            error.message || "Some error occurred while retrieving data."
+          });
+    })
+}
+
+
+exports.findOne = (req, res) => {
+    const condition = {};
+    condition.id = req.params.id;
+    Assessment.findOne({where: condition, include: [{model: Question}]}).then(data => {
         res.send(data)
     }).catch(error =>{
         res.status(500).send({

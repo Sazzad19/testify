@@ -29,8 +29,21 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE'
       },
       obtainedMarks: {
-        allowNull: false,
         type: DataTypes.INTEGER
+      },
+      answers: {
+        allowNull: false,
+        type: DataTypes.JSON,
+        get () {
+          return JSON.parse(this.getDataValue('answers'))
+        },
+        set (value) {
+          return this.setDataValue('answers', JSON.stringify(value))
+        }
+      },
+      justified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,
