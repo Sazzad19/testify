@@ -16,4 +16,4 @@ app.get('/', (req, res) => {
   res.send('Successful response.');
 });
 app.use('/api', routes);
-app.listen(port, ()=> console.log(`book bazar server port ${port}`));
+app.listen(port, ()=> console.log(` server port ${port}`));

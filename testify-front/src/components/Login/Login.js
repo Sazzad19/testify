@@ -1,32 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../Context/UserProvider/UserProvider';
 import './Login.css'
 
 const Login = () => {
-    const handleSubmit = (event)=>{
-        event.preventDefault();
-    
-        const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        const loginInfo = {
-          email,
-          password,
+   const {setUser, setLoading} = useContext(UserContext);
+
+   const handleLoginSubmit = (event)=>{
+    event.preventDefault();
+    const form = event.target;
+
+    const loginInfo = {
+      email: form.email.value,
+      password: form.password.value,
       }
-    
-      fetch('http://localhost:5000/api/signin',{
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(loginInfo)
-    })
-    .then(res => res.json())
-    .then(data =>{
-       console.log(data)
-        
-    })
-      }
+
+  fetch('http://localhost:5000/api/signin',{
+    method: 'POST',
+    headers: {
+        'content-type': 'application/json'
+    },
+    body: JSON.stringify(loginInfo)
+})
+.then(res => res.json())
+.then(data =>{
+   console.log(data);
+   setUser(data);
+   setLoading(false);
+   localStorage.setItem('token', data.token);
+})
+  }
+
     return (
         <div className="wrapper">
         <div className="logo-login">
@@ -35,7 +39,7 @@ const Login = () => {
         <div className="text-center name">
         <h4 className=''>Testify</h4>
         </div>
-        <form onSubmit={handleSubmit} className="p-3 mt-3">
+        <form onSubmit={handleLoginSubmit} className="p-3 mt-3">
             <div className="form-field">
                   <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +60,7 @@ const Login = () => {
             <button className="btn mt-3">Login</button>
         </form>
         <div className="text-center fs-6">
-            <Link to="#">Forget password?</Link> or <Link to="signUp">Sign up</Link>
+            {/* <Link to="#">Forget password?</Link> or <Link to="signUp">Sign up</Link> */}
         </div>
     </div>
         

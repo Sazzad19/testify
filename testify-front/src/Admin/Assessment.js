@@ -38,20 +38,49 @@ const Assessment = () => {
     event.preventDefault();
 
     const form = event.target;
-    const assessment = form.assessment.value;
-    const Class = form.Class.value;
-    const subject = form.subject.value;
-    const timeDuration = form.timeDuration.value;
-    const questionInfo = {
-      assessment,
-      Class,
-      subject,
-      timeDuration,
-      questions:[
-        ...inputFields
-      ]
+    const questionInfo = [];
+    inputFields.forEach(question =>{
+      const questionToSend = {}
+      questionToSend.question = question.question;
+      questionToSend.type = question.type;
+      questionToSend.rightAnswer = question.correctAns;
+      questionToSend.mark = question.questionMark;
+    
+      const optionToSend = {}
+      optionToSend.a = question.option1;
+      optionToSend.b = question.option2;
+      optionToSend.c = question.option3;
+      optionToSend.d = question.option4;
+
+      questionToSend.options = optionToSend
+
+
+      questionInfo.push(questionToSend)
+
+    })
+
+    const assesmentInfo = {
+      name: form.name.value,
+      class : form.class.value,
+      totalMarks:  0,
+      subject: form.subject.value,
+      timeLimit: form.timeDuration.value,
+      type: typeSelect,
+      questions: questionInfo
     }
-    console.log(questionInfo)
+   
+    fetch('http://localhost:5000/api/assessment/create',{
+      method: 'POST',
+      headers: {
+          'content-type': 'application/json',
+          Authorization: `JWT ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify(assesmentInfo)
+  })
+  .then(res => res.json())
+  .then(data =>{
+     console.log(data)
+    })
   }
 
   const handleTypeSelect = event =>{
@@ -71,28 +100,22 @@ const Assessment = () => {
    
     
   }
-  // const addFileQuestion = (event)=>{
-  //   event.preventDefault();
-  //     let object =
-  //     {question: '',
-  //     questionMark: ''
-  //   }
-  //   setBroadQuestion([...broadQuestion,object ]) 
-  // }
+  
   
   return (
     <div>
+      <h2 className="text-center">Assessment</h2>
      <form onSubmit={(event)=>handleSubmit(event)}>
      
      <Row className="g-3 mt-5">
         <Col md>
-          <FloatingLabel controlId="floatingInputGrid" label="Assessment Name">
-            <Form.Control type="text" name="assessment" placeholder="assessment name" />
+          <FloatingLabel controlId="floatingInputGrid" label="Name">
+            <Form.Control type="text" name="name" placeholder="assessment name" />
           </FloatingLabel>
         </Col>
         <Col md>
           <FloatingLabel controlId="floatingInputGrid" label="Class">
-            <Form.Control type="text" name="Class"  placeholder="class" />
+            <Form.Control type="text" name="class"  placeholder="class" />
           </FloatingLabel>
         </Col>
       </Row>

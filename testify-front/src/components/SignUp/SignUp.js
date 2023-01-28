@@ -1,43 +1,39 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form'
 
 const SignUp = () => {
 const [classNumber, setClassNumber] = useState('');
-
+const navigate = useNavigate();
 
 
   const handleSubmit = (event)=>{
     event.preventDefault();
 
     const form = event.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    const classNumber = form.classNumber.value;
-    const type = form.role.value;
     
     const allUserInfo = {
-      name,
-      email,
-      password,
-      classNumber,
-      type
+      name: form.name.value,
+      email: form.email.value,
+      password: form.password.value,
+      class: form.classNumber.value,
+      type: form.role.value
   }
 
-//   fetch('http://localhost:5000/api/signup',{
-//     method: 'POST',
-//     headers: {
-//         'content-type': 'application/json'
-//     },
-//     body: JSON.stringify(allUserInfo)
-// })
-// .then(res => res.json())
-// .then(data =>{
-//    alert('Add data successfully');
-//    console.log(data)
-    
-// })
+  fetch('http://localhost:5000/api/signup',{
+    method: 'POST',
+    headers: {
+        'content-type': 'application/json'
+    },
+    body: JSON.stringify(allUserInfo)
+})
+.then(res => res.json())
+.then(data =>{
+   if(data.success)
+   {
+    navigate('/')
+   }  
+})
   }
 
   const optionSelect = (event)=>{
