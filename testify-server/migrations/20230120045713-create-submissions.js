@@ -30,8 +30,15 @@ module.exports = {
         onDelete: 'CASCADE'
       },
       obtainedMarks: {
-        allowNull: false,
         type: Sequelize.INTEGER
+      },
+      answers: {
+        allowNull: false,
+        type: Sequelize.JSON
+      },
+      justified: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,
