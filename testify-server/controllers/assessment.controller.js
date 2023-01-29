@@ -10,9 +10,10 @@ exports.create = (req, res) => {
         questions.forEach(async question => {
             await  Question.create({...question, AssessmentId: assessment.id })
         })
-        res.send(assessment)
+        res.send({success: true, result: assessment})
     }).catch(error =>{
         res.status(500).send({
+            success: false,
             message:
             error.message || "Some error occurred while creating data."
           });
@@ -27,9 +28,10 @@ exports.findAll = (req, res) => {
         condition.class = req.user.class;
     }
     Assessment.findAll({where: condition}).then(data => {
-        res.send(data)
+        res.send({success: true, result: data})
     }).catch(error =>{
         res.status(500).send({
+            success: false,
             message:
             error.message || "Some error occurred while retrieving data."
           });
@@ -41,9 +43,10 @@ exports.findOne = (req, res) => {
     const condition = {};
     condition.id = req.params.id;
     Assessment.findOne({where: condition, include: [{model: Question}]}).then(data => {
-        res.send(data)
+        res.send({success: true, result: data})
     }).catch(error =>{
         res.status(500).send({
+            success: false,
             message:
             error.message || "Some error occurred while retrieving data."
           });

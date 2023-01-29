@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import Test from '../../Admin/Test';
+
 
 const AssessmentsList = () => {
+
+  const [assessments, setAssessments] = useState([]);
+  
+  useEffect( ()=> {
+    fetch('http://localhost:5000/api/assessment/list',
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `JWT ${localStorage.getItem('token')}`
+      }
+  })
+
+    .then(res => res.json())
+     .then(data => 
+      {console.log('assessment list', data)
+      setAssessments(data.result)
+    })
+  }, [])
     return (
         <div className='container'>
             <h2 className='my-4  text-center'>Assessments List</h2>
@@ -18,32 +36,22 @@ const AssessmentsList = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Larry the Bird</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
-        </tr>
+        {
+          assessments.map((assessment , index)=>
+            <tr key={index}>
+            <td>{index+1}</td>
+            <td>{assessment.name}</td>
+            <td>20</td>
+            <td>{assessment.totalMarks}</td>
+            <td><button className='btn btn-primary'>Edit</button></td>
+          </tr>
+            )
+        }
+ 
+     
       </tbody>
     </Table>
            </div>
-
-           <Test></Test>
         </div>
     );
 };

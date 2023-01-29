@@ -1,35 +1,17 @@
 import React from "react";
 import "./FillInTheGap.css";
 
-const FillInTheGap = () => {
+const FillInTheGap = ({ques,inx, setAnswer}) => {
+  const {question} = ques;
   return (
     <div>
       <div className="question-container">
-        <div className="question-header">
-          <h4>React is mainly used&nbsp;for _______ (if needed, google it)</h4>
-        </div>
+      <h4>{inx+1}. {question}</h4>
         <div className="options-container">
-          <input className="gap-input" type="text" />
+          <input className="gap-input" type="text" onChange={(e)=>setAnswer(e.target.value,ques.id)} />
         </div>
       </div>
 
-      <div className="question-container">
-        <div className="question-header">
-          <h4>React is mainly used&nbsp;for _______ (if needed, google it)</h4>
-        </div>
-        <div className="options-container">
-          <input className="gap-input" type="text" />
-        </div>
-      </div>
-
-      <div className="question-container">
-        <div className="question-header">
-          <h4>React is mainly used&nbsp;for _______ (if needed, google it)</h4>
-        </div>
-        <div className="options-container">
-          <input className="gap-input" type="text" />
-        </div>
-      </div>
     </div>
   );
 };

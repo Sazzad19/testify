@@ -20,9 +20,10 @@ exports.create = (req, res) => {
             req.body.justified = true;
         }
         Submission.create({...req.body, obtainedMarks: totalMarks, UserId: req.user.id}).then(submission => {
-            res.send(submission)
+            res.send({success: true, result: submission})
         }).catch(error =>{
             res.status(500).send({
+                success: false,
                 message:
                 error.message || "Some error occurred while creating data."
               });
@@ -37,9 +38,10 @@ exports.findAll = (req, res) => {
         condition.AssessmentId = req.params['assessmentId']
     }
     Submission.findAll({where: condition}).then(data => {
-        res.send(data)
+        res.send({success: true, result: data})
     }).catch(error =>{
         res.status(500).send({
+            success: false,
             message:
             error.message || "Some error occurred while retrieving data."
           });

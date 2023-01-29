@@ -79,7 +79,7 @@ const Assessment = () => {
   })
   .then(res => res.json())
   .then(data =>{
-     console.log(data)
+     console.log(data);
     })
   }
 
@@ -145,8 +145,8 @@ const Assessment = () => {
               aria-label="Floating label select example"
             >
               <option value={null} selected>Type</option>
-              <option value="BroadQuestion">Broad Question</option>
-              <option value="ShortQuestion">Short Question</option>
+              <option value="broad">Broad Question</option>
+              <option value="short">Short Question</option>
             </Form.Select>
           </FloatingLabel>
         </Col>
@@ -154,7 +154,7 @@ const Assessment = () => {
       }
       
       {
-        typeSelect === 'ShortQuestion' &&
+        typeSelect === 'short' &&
       <div>
           {
         inputFields.map((input, index)=> <div key={index}>
@@ -200,7 +200,7 @@ const Assessment = () => {
    </div>
 }
 {
-        typeSelect === 'BroadQuestion' &&
+        typeSelect === 'broad' &&
         <div>
           {
             inputFields.map((input, index)=>

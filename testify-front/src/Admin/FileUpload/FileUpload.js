@@ -1,8 +1,7 @@
 import React from 'react';
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Form from "react-bootstrap/Form";
+
 
 
 const FileUpload = ({handleInput, index}) => {

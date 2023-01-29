@@ -3,22 +3,32 @@ import { Link, useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form'
 
 const SignUp = () => {
-const [classNumber, setClassNumber] = useState('');
+const [type, setType] = useState('');
 const navigate = useNavigate();
 
 
   const handleSubmit = (event)=>{
     event.preventDefault();
-
+    let allUserInfo;
     const form = event.target;
-    
-    const allUserInfo = {
-      name: form.name.value,
-      email: form.email.value,
-      password: form.password.value,
-      class: form.classNumber.value,
-      type: form.role.value
-  }
+    if(type=== 'student')
+    {
+      allUserInfo = {
+        name: form.name.value,
+        email: form.email.value,
+        password: form.password.value,
+        class: form.classNumber.value,
+        type: form.role.value
+    }
+  } 
+    else{
+       allUserInfo = {
+        name: form.name.value,
+        email: form.email.value,
+        password: form.password.value,
+        type: form.role.value
+    }
+  } 
 
   fetch('http://localhost:5000/api/signup',{
     method: 'POST',
@@ -38,7 +48,7 @@ const navigate = useNavigate();
 
   const optionSelect = (event)=>{
     event.preventDefault();
-    setClassNumber(event.target.value);
+    setType(event.target.value);
   }
   return (
     <div className="wrapper">
@@ -82,7 +92,7 @@ const navigate = useNavigate();
         </Form.Select>
         </Form.Group>
         {
-            classNumber === 'student' &&  <div className="form-field">
+            type === 'student' &&  <div className="form-field">
             <span className="far fa-user"></span>
             <input type="text" name="classNumber" id="classNumber" placeholder="Class Number" />
           </div>

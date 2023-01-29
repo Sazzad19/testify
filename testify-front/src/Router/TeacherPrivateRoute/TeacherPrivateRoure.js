@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { UserContext } from '../../Context/UserProvider/UserProvider';
 
-
-const PrivateRoute = ({children}) => {
+const TeacherPrivateRoure = ({children}) => {
     const {user, loading} = useContext(UserContext);
   
     const location = useLocation();
@@ -11,12 +10,10 @@ const PrivateRoute = ({children}) => {
         // if(loading){
         //     return <div><h1>Loading</h1></div>
         // }
-        console.log('user', user);
-        if(token  && user?.type === 'student'){
+        if(token && user?.type === 'teacher'){
             return children
         }
         return <Navigate to='/' state={{from: location}} replace ></Navigate>
-    
 };
 
-export default PrivateRoute;
+export default TeacherPrivateRoure;

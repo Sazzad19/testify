@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../Context/UserProvider/UserProvider';
 import './Login.css'
 
 const Login = () => {
    const {setUser, setLoading} = useContext(UserContext);
+   const navigate = useNavigate();
 
-   const handleLoginSubmit = (event)=>{
+  const handleLoginSubmit = (event)=>{
     event.preventDefault();
     const form = event.target;
 
@@ -24,9 +25,19 @@ const Login = () => {
 })
 .then(res => res.json())
 .then(data =>{
-   console.log(data);
-   setUser(data);
+   setUser(data.result);
    setLoading(false);
+   if(data.result.type === 'student')
+   {
+    console.log("studenttt");
+     navigate('/assessments-student')
+   }
+   else{
+    console.log("teacherrrr");
+
+    navigate('/assessments');
+   }
+   
    localStorage.setItem('token', data.token);
 })
   }

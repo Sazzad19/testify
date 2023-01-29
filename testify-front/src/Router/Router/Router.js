@@ -6,9 +6,13 @@ import Login from "../../components/Login/Login";
 import NotFound from "../../components/NotFound/NotFound";
 import QuizDetails from "../../components/QuizDetails/QuizDetails";
 import SignUp from "../../components/SignUp/SignUp";
+import AssessmentDetalis from "../../components/Student/AssessmentDetails/AssessmentDetalis";
+import StudentAssessment from "../../components/Student/StudentAssessment/StudentAssessment";
 import SubmissionList from "../../components/SubmissionList/SubmissionList";
 import Main from "../../layouts/Main/Main";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import TeacherPrivateRoure from "../TeacherPrivateRoute/TeacherPrivateRoure";
+
 
 
   export const router = createBrowserRouter([
@@ -27,7 +31,7 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
         },
         {
           path: 'admin',
-          element: <Admin></Admin>
+          element: <TeacherPrivateRoure><Admin></Admin></TeacherPrivateRoure>
         },
         {
           path: 'signUp',
@@ -35,18 +39,36 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
         },
         {
           path: 'assessments',
-          element: <AssessmentsList></AssessmentsList>
+          element: <TeacherPrivateRoure><AssessmentsList></AssessmentsList></TeacherPrivateRoure>
+        },
+        {
+          path: 'assessments-student',
+          element: <PrivateRoute><StudentAssessment></StudentAssessment></PrivateRoute>
+        },
+        {
+          path: 'assessments-student/assessments/details/:id',
+          // loader: async({params})=>{
+          //   return fetch(`http://localhost:5000/api/assessment/details/${params.id}`)
+          // },
+          element: <PrivateRoute><AssessmentDetalis></AssessmentDetalis></PrivateRoute>
         },
         {
           path: 'submission',
-          element: <SubmissionList></SubmissionList>
+          element: <TeacherPrivateRoure><SubmissionList></SubmissionList></TeacherPrivateRoure>
         },
 
         {
           path: 'home/quiz/:id',
-          loader: async({params})=>{
-            return fetch(`https://openapi.programming-hero.com/api/quiz/${params.id}`)
-          },
+          // loader: async({params})=>{
+          //   return fetch(`https://openapi.programming-hero.com/api/quiz/${params.id}`,
+          //   {
+          //     method: 'GET',
+          //     headers: {
+          //       Authorization: `JWT ${localStorage.getItem('token')}`
+          //     }
+          // }
+          //   )
+          // },
           element: <QuizDetails></QuizDetails>
         }
       ]
