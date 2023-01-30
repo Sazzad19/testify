@@ -5,14 +5,12 @@ import { UserContext } from '../../Context/UserProvider/UserProvider';
 
 const PrivateRoute = ({children}) => {
     const {user, loading} = useContext(UserContext);
-  
     const location = useLocation();
     const token = localStorage.getItem('token');
         // if(loading){
         //     return <div><h1>Loading</h1></div>
         // }
-        console.log('user', user);
-        if(token  && user?.type === 'student'){
+        if(user?.type === 'student'){
             return children
         }
         return <Navigate to='/' state={{from: location}} replace ></Navigate>

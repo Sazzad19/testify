@@ -22,12 +22,12 @@ const Header = () => {
         </NavLink>
       </div>
       <div className={`nav-link ${open ? 'top-4' : 'top-120'}`}>
-        <NavLink
+        {/* <NavLink
           className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
           to="home"
         >
           Home
-        </NavLink>
+        </NavLink> */}
 
         {
           token && user?.type === 'teacher' ?   

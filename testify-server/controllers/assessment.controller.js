@@ -7,10 +7,16 @@ const Op = db.Sequelize.Op;
 exports.create = (req, res) => {
     Assessment.create({...req.body, UserId: req.user.id}).then(assessment => {
         const questions = req.body.questions;
+        let totalMarks = 0;
+        let questionCount = 0;
         questions.forEach(async question => {
+            if(question.mark){ totalMarks = totalMarks + question.mark}
+            questionCount = questionCount +1;
             await  Question.create({...question, AssessmentId: assessment.id })
         })
-        res.send({success: true, result: assessment})
+        assessment.update({questionCount,totalMarks}).then(()=>{
+            res.send({success: true, result: assessment})
+        })
     }).catch(error =>{
         res.status(500).send({
             success: false,

@@ -10,7 +10,7 @@ const TeacherPrivateRoure = ({children}) => {
         // if(loading){
         //     return <div><h1>Loading</h1></div>
         // }
-        if(token && user?.type === 'teacher'){
+        if(user?.type === 'teacher'){
             return children
         }
         return <Navigate to='/' state={{from: location}} replace ></Navigate>

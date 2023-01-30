@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../Context/UserProvider/UserProvider';
 import './Login.css'
 
 const Login = () => {
-   const {setUser, setLoading} = useContext(UserContext);
+   const {setUser, user, setLoading, loading} = useContext(UserContext);
    const navigate = useNavigate();
 
   const handleLoginSubmit = (event)=>{
@@ -15,7 +15,6 @@ const Login = () => {
       email: form.email.value,
       password: form.password.value,
       }
-
   fetch('http://localhost:5000/api/signin',{
     method: 'POST',
     headers: {
@@ -27,21 +26,20 @@ const Login = () => {
 .then(data =>{
    setUser(data.result);
    setLoading(false);
-   if(data.result.type === 'student')
-   {
-    console.log("studenttt");
-     navigate('/assessments-student')
-   }
-   else{
-    console.log("teacherrrr");
-
-    navigate('/assessments');
-   }
-   
    localStorage.setItem('token', data.token);
 })
   }
-
+  useEffect(()=>{
+    if(!loading){
+      if(user.type === 'student')
+      {
+        navigate('/assessments-student')
+      }
+      else{
+       navigate('/assessments');
+      }
+    }
+  },[user])
     return (
         <div className="wrapper">
         <div className="logo-login">

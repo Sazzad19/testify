@@ -43,6 +43,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
+      questionCount: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

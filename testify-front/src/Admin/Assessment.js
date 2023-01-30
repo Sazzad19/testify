@@ -9,6 +9,8 @@ import './Admin.css'
 import Multiple from "./Multiple/Multiple";
 import FillInTheGap from "./FillInTheGap/FillInTheGap";
 import FileUpload from "./FileUpload/FileUpload";
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Assessment = () => {
   
@@ -33,6 +35,7 @@ const Assessment = () => {
   setInputFields(data);
   // console.log('data', data)
   }
+  const navigate = useNavigate();
 
   const handleSubmit = (event)=>{
     event.preventDefault();
@@ -79,7 +82,10 @@ const Assessment = () => {
   })
   .then(res => res.json())
   .then(data =>{
-     console.log(data);
+    if(data.success){
+      navigate('/assessments');
+      toast('Assessment Create Successfully')
+    }
     })
   }
 
