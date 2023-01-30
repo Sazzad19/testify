@@ -1,7 +1,7 @@
 
 import './Question.css'
 
-const Question = ({ques,inx,setAnswer,handleChange}) => {
+const Question = ({ques,inx,setAnswer,createAnswer}) => {
     const {question, options} = ques ;
    
 
@@ -21,7 +21,7 @@ const Question = ({ques,inx,setAnswer,handleChange}) => {
               type="radio"
               name='option'
               value='a'
-              onChange={(e) => setAnswer(e.target.value, ques.id)}
+              onChange={(e) => createAnswer(e.target.value, ques.id)}
                />
                {options.a}
              </label>
@@ -32,7 +32,7 @@ const Question = ({ques,inx,setAnswer,handleChange}) => {
               type="radio"
               name='option'
               value='b'
-              onChange={(e) => setAnswer(e.target.value)}
+              onChange={(e) => createAnswer(e.target.value, ques.id)}
                />
                {options.b}
              </label>
@@ -43,7 +43,7 @@ const Question = ({ques,inx,setAnswer,handleChange}) => {
               type="radio"
               name='option'
               value='c'
-              onChange={(e) => setAnswer(e.target.value)}
+              onChange={(e) => createAnswer(e.target.value, ques.id)}
                />
                {options.c}
              </label>
@@ -54,7 +54,7 @@ const Question = ({ques,inx,setAnswer,handleChange}) => {
               type="radio"
               name='option'
               value='d'
-              onChange={(e) => setAnswer(e.target.value)}
+              onChange={(e) => createAnswer(e.target.value, ques.id)}
                />
                {options.d}
              </label>

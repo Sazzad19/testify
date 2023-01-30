@@ -34,14 +34,15 @@ const AssessmentDetalis = () => {
       const submissionInfo = {
         UserId: user.id,
         AssessmentId: questions.AssessmentId,
-        answers: [
+        answers: 
+        [
           {questionId: questions.id,
           answer: answer
-          }
-      ]
+          } 
+        ]
         }
 
-        console.log('submission info',user.result.id)
+        console.log('answer info', answer)
   
   //   fetch('http://localhost:5000/api/signin',{
   //     method: 'POST',
@@ -79,13 +80,15 @@ const AssessmentDetalis = () => {
                 <Question 
                 ques={ques}
                 inx={inx}
-                setAnswer={(answer, quesId)=> createAnswer(answer, quesId)}
+                createAnswer={createAnswer}
+                // setAnswer={(answer, quesId)=> createAnswer(answer, quesId)}
                 ></Question>
                 : 
                 <FillInTheGap
                 ques={ques}
                 inx={inx}
-                setAnswer={(answer, quesId)=> createAnswer(answer,quesId)}
+                createAnswer={createAnswer}
+                // setAnswer={(answer, quesId)=> createAnswer(answer,quesId)}
                 ></FillInTheGap>
             )
           }
