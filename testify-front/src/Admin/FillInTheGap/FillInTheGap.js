@@ -19,15 +19,7 @@ const FillInTheGap = ({handleInput, index}) => {
               placeholder='write your question'>
               </textarea>
            </div>
-        {/* <Col>
-        <FloatingLabel controlId="floatingInputGrid" label="Fill in the gap question">
-           <Form.Control 
-           name='question'
-           type="text"
-           onChange={(event) =>handleInput(event,index)}
-           placeholder="Write your question" />
-         </FloatingLabel>
-         </Col> */}
+       
      </Row>
      <Row>
       <Col>
@@ -46,14 +38,15 @@ const FillInTheGap = ({handleInput, index}) => {
       <Col>
       <div className="form-outline w-50 mb-2 mt-3">
               <label className="form-label fw-bold" htlmfor="textAreaExample6">Question Mark</label>
-             <textarea
+             <input
+              type='number'
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3"
               name='questionMark' 
               onChange={(event) =>handleInput(event,index)}
-              placeholder='write question mark'>
-              </textarea>
+              placeholder='write question mark'/>
+            
            </div>
       </Col>   
      </Row>

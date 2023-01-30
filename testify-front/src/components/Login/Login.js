@@ -30,7 +30,7 @@ const Login = () => {
 })
   }
   useEffect(()=>{
-    if(!loading){
+    if(!loading && user){
       if(user.type === 'student')
       {
         navigate('/assessments-student')

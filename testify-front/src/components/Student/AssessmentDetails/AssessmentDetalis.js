@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { UserContext } from '../../../Context/UserProvider/UserProvider';
 import FillInTheGap from '../../FillInTheGap/FillInTheGap';
 import Question from '../../Question/Question';
+import BroadQuestion from '../BroadQuestion/BroadQuestion';
 
 
 const AssessmentDetalis = () => {
@@ -33,28 +34,25 @@ const AssessmentDetalis = () => {
     const handleSubmission = ()=>{
       const submissionInfo = {
         UserId: user.id,
-        AssessmentId: questions.AssessmentId,
-        answers: 
-        [
-          {questionId: questions.id,
-          answer: answer
-          } 
-        ]
+        AssessmentId: Assessment.id,
+        answers: answer
         }
 
-        console.log('answer info', answer)
+        console.log('submissionInfo info', submissionInfo)
   
-  //   fetch('http://localhost:5000/api/signin',{
-  //     method: 'POST',
-  //     headers: {
-  //         'content-type': 'application/json'
-  //     },
-  //     body: JSON.stringify(loginInfo)
-  // })
-  // .then(res => res.json())
-  // .then(data =>{
-  // localStorage.setItem('token', data.token);
-  // })
+    fetch('http://localhost:5000/api/submission/create',{
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `JWT ${localStorage.getItem('token')}`
+    },
+      body: JSON.stringify(submissionInfo)
+  })
+  .then(res => res.json())
+  .then(data =>{
+    console.log('submission', data)
+  
+  })
     }
 
     const createAnswer = (answer, quesId)=>{
@@ -95,7 +93,15 @@ const AssessmentDetalis = () => {
             </>
         
              :
-             <></>
+             <>
+             { questions.map((ques, inx) => 
+             <BroadQuestion
+             ques={ques}
+             inx={inx}
+             createAnswer={createAnswer}
+             ></BroadQuestion>)
+             }
+             </>
         }
        
         </div>

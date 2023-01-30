@@ -41,7 +41,7 @@ const AssessmentsList = () => {
             <tr key={index}>
             <td>{index+1}</td>
             <td>{assessment.name}</td>
-            <td>20</td>
+            <td>{assessment.questionCount}</td>
             <td>{assessment.totalMarks}</td>
             <td><button className='btn btn-primary'>Edit</button></td>
           </tr>

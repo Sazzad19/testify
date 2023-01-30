@@ -23,7 +23,7 @@ const Multiple = ({handleInput, index, input}) => {
         <Row className="g-3 mt-1">
         <Col md>
         <div className="form-outline  mb-4">
-              <label className="form-label fw-bold" htlmfor="textAreaExample6">Option 1</label>
+              <label className="form-label fw-bold" htlmfor="textAreaExample6">a</label>
              <textarea 
               className="form-control bg-light"
               id="textAreaExample6"
@@ -31,14 +31,14 @@ const Multiple = ({handleInput, index, input}) => {
               value={input.option}
               name='option1'
               onChange={(event) =>handleInput(event,index)}
-              placeholder='write your Option 1'>
+              placeholder='write your Option a'>
               </textarea>
            </div>
         </Col>
         <Col md>
         <div className="form-outline mb-4">
               <label className="form-label fw-bold"
-              htlmfor="textAreaExample6">Option 2</label>
+              htlmfor="textAreaExample6">b</label>
               <textarea 
               className="form-control bg-light" 
               id="textAreaExample6" 
@@ -46,13 +46,13 @@ const Multiple = ({handleInput, index, input}) => {
               value={input.option}
               onChange={(event) =>handleInput(event,index)}
               name='option2'
-              placeholder='write your Option 2'>
+              placeholder='write your Option b'>
              </textarea>
            </div>
         </Col>
         <Col md>
         <div className="form-outline mb-4">
-              <label className="form-label fw-bold" htlmfor="textAreaExample6">Option 3</label>
+              <label className="form-label fw-bold" htlmfor="textAreaExample6">c</label>
              <textarea
               name='option3'
               className="form-control bg-light" 
@@ -60,13 +60,13 @@ const Multiple = ({handleInput, index, input}) => {
               rows="3" 
               value={input.option}
               onChange={(event) =>handleInput(event,index)}
-              placeholder='write your Option 3'>
+              placeholder='write your Option c'>
               </textarea>
            </div>
         </Col>
         <Col md>
         <div className="form-outline mb-4">
-              <label className="form-label fw-bold" htlmfor="textAreaExample6">Option 4</label>
+              <label className="form-label fw-bold" htlmfor="textAreaExample6">d</label>
               <textarea 
               name='option4'
               className="form-control bg-light"
@@ -74,7 +74,7 @@ const Multiple = ({handleInput, index, input}) => {
               id="textAreaExample6" 
               rows="3" 
               value={input.option}
-              placeholder='write your Option 4'>
+              placeholder='write your Option d'>
               </textarea>
            </div>
         </Col>
@@ -89,21 +89,22 @@ const Multiple = ({handleInput, index, input}) => {
               rows="3"
               name='correctAns' 
               onChange={(event) =>handleInput(event,index)}
-              placeholder='write your question'>
+              placeholder='write your answer'>
               </textarea>
            </div>
       </Col>
       <Col>
       <div className="form-outline w-50 mb-2 mt-3">
               <label className="form-label fw-bold" htlmfor="textAreaExample6">Question Mark</label>
-             <textarea
+             <input
+              type='number'
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3"
               name='questionMark' 
               onChange={(event) =>handleInput(event,index)}
-              placeholder='write question mark'>
-              </textarea>
+              placeholder='write question mark'/>
+             
            </div>
       </Col>   
      </Row>

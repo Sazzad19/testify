@@ -1,14 +1,20 @@
 import React, { useContext, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserProvider/UserProvider";
 import "./Header.css";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
-  const {user} = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
 
- 
+ const logOut =()=>{
+  localStorage.removeItem('token');
+  setUser(null)
+  navigate('/')
+  console.log("clikkk");
+ }
   return (
     <nav className="header">
       <div  className='nav-icons'>
@@ -30,7 +36,7 @@ const Header = () => {
         </NavLink> */}
 
         {
-          token && user?.type === 'teacher' ?   
+          token && user && user?.type === 'teacher' ?   
           <>
           <NavLink
           className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
@@ -54,7 +60,7 @@ const Header = () => {
         <></>
         }
         {
-          token && user?.type === 'student' ? 
+          token && user && user?.type === 'student' ? 
           <NavLink
           className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
           to="assessments-student">
@@ -64,20 +70,36 @@ const Header = () => {
         <></>
         }
       
+      {!user ? 
+              <NavLink
+              className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
+              to="/"
+            >
+              Login
+            </NavLink>: 
+            <></>
+    }
 
-        <NavLink
-          className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
-          to="/"
-        >
-          Login
-        </NavLink>
+{user ? 
+              <button
+              className='btn btn-primary ms-3'
+            onClick={logOut}
+            >
+              LogOut
+            </button>: 
+            <></>
+    }
 
+
+       { !user ? 
         <NavLink
           className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
           to="signUp"
         >
           Sign Up
-        </NavLink>
+        </NavLink> : 
+        <></>
+       }
       </div>
     </nav>
   );

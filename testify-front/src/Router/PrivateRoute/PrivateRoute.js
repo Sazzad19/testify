@@ -10,7 +10,7 @@ const PrivateRoute = ({children}) => {
         // if(loading){
         //     return <div><h1>Loading</h1></div>
         // }
-        if(user?.type === 'student'){
+        if(user && user?.type === 'student'){
             return children
         }
         return <Navigate to='/' state={{from: location}} replace ></Navigate>
