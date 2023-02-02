@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Form } from 'react-router-dom';
+import './BroadQuestion.css'
 
-const BroadQuestion = ({ques,inx, setAnswer, createAnswer}) => {
+const BroadQuestion = ({ques,inx, createAnswer}) => {
     const {question} = ques;
     const [type, setType] = useState('');
     const optionSelect = (event)=>{
@@ -10,35 +10,35 @@ const BroadQuestion = ({ques,inx, setAnswer, createAnswer}) => {
       }
     return (
      
-        <div>
-      <div className="question-container">
-      <h4>{inx+1}. {question}</h4>
-      <Form.Group  className="mb-3 ">
-        {/* <Form.Label>Select Type</Form.Label> */}
-        <Form.Select name='role'  onInput={(event)=>optionSelect(event)} className="form-field">
-        <option  selected  value='typing'>Typing Answer</option>
-        <option value='file'>File Upload</option>
-        </Form.Select>
-        </Form.Group>
+      <div className='broad-container'>
+      <div className="">
+      <h4 className='question'>{inx+1}. {question}</h4>
+
+      <div  className="select-container">
+      <select  onInput={(event)=>optionSelect(event)} className='select-box'>
+    <option selected disabled value="0">Select type:</option>
+    <option value="typing">Write Question</option>
+    <option value="file">File Upload</option>
+     </select>
+  
+      </div>
+   
         {
-            type === 'typing' ?
+          type === 'typing' &&
             
-            <div className="form-field">
-            <span className="far fa-user"></span>
-            <input
-           onChange={(e)=>createAnswer(e.target.value,ques.id)}
-            type="text" name="typingAnswer" id="classNumber" placeholder="Write your question" />
-          </div>
-          :
-          <div className="form-field">
-          <span className="far fa-user"></span>
-          <input
-          onChange={(e)=>createAnswer(e.target.value,ques.id)}
-          type="file" name="file" id="classNumber" placeholder="file upload" />
-        </div>
-        }
        
-     
+           <textarea className='input'
+           name={`${ques.id}`}
+          //  onChange={(e)=>createAnswer(e.target.value,ques.id)}
+            type="text"  id="classNumber" placeholder="Write your question"></textarea>
+       
+        }
+        {
+          type === 'file' &&
+          <input
+          // onChange={(e)=>createAnswer(e.target.value,ques.id)}
+          type="file"   name={`${ques.id}`} id="classNumber" placeholder="file upload" />
+        }
       </div>
 
     </div>

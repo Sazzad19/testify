@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 
-const FillInTheGap = ({handleInput, index}) => {
+const FillInTheGap = ({handleInput, index, input}) => {
     return (
         <div className='my-3'>
         <Row>
@@ -13,6 +13,8 @@ const FillInTheGap = ({handleInput, index}) => {
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3"
+              defaultValue={input?.question
+              }
               name='question' 
               type="text" 
               onChange={(event) =>handleInput(event,index)}
@@ -29,6 +31,8 @@ const FillInTheGap = ({handleInput, index}) => {
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3"
+              defaultValue={input?.question
+              }
               name='correctAns' 
               onChange={(event) =>handleInput(event,index)}
               placeholder='write your question'>
@@ -43,6 +47,8 @@ const FillInTheGap = ({handleInput, index}) => {
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3"
+              defaultValue={input?.rightAnswer
+              }
               name='questionMark' 
               onChange={(event) =>handleInput(event,index)}
               placeholder='write question mark'/>

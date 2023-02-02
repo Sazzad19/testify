@@ -140,7 +140,8 @@ const Assessment = () => {
         </Col>
       </Row>
       {
-        type && <Row className="my-3 w-50">
+        type && 
+        <Row className="my-3 w-50">
         <Col md>
           <FloatingLabel
             controlId="floatingSelectGrid"
@@ -179,13 +180,7 @@ const Assessment = () => {
            handleInput={handleInput}>
            </FillInTheGap>
          }
-         {/* {
-            input.type === 'FS' && 
-           <FileUpload
-            index={index}
-            handleInput={handleInput}>
-            </FileUpload>
-         } */}
+       
          {
            input.type === '' ?
            <SelectOption optionSelect={optionSelect} index={index}
@@ -203,8 +198,8 @@ const Assessment = () => {
 
         </Col>
       </Row>
-   </div>
-}
+       </div>
+      }
 {
         typeSelect === 'broad' &&
         <div>

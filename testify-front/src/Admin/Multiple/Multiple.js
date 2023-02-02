@@ -13,7 +13,7 @@ const Multiple = ({handleInput, index, input}) => {
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3"
-              value={input.question}
+              defaultValue={input.question}
               name='question' 
               onChange={(event) =>handleInput(event,index)}
               placeholder='write your question'>
@@ -28,7 +28,7 @@ const Multiple = ({handleInput, index, input}) => {
               className="form-control bg-light"
               id="textAreaExample6"
               rows="3"
-              value={input.option}
+              defaultValue={input?.options?.a}
               name='option1'
               onChange={(event) =>handleInput(event,index)}
               placeholder='write your Option a'>
@@ -43,9 +43,9 @@ const Multiple = ({handleInput, index, input}) => {
               className="form-control bg-light" 
               id="textAreaExample6" 
               rows="3" 
-              value={input.option}
               onChange={(event) =>handleInput(event,index)}
               name='option2'
+              defaultValue={input?.options?.b}
               placeholder='write your Option b'>
              </textarea>
            </div>
@@ -58,7 +58,7 @@ const Multiple = ({handleInput, index, input}) => {
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3" 
-              value={input.option}
+              defaultValue={input?.options?.c}
               onChange={(event) =>handleInput(event,index)}
               placeholder='write your Option c'>
               </textarea>
@@ -73,7 +73,7 @@ const Multiple = ({handleInput, index, input}) => {
               onChange={(event) =>handleInput(event,index)}
               id="textAreaExample6" 
               rows="3" 
-              value={input.option}
+              defaultValue={input?.options?.d}
               placeholder='write your Option d'>
               </textarea>
            </div>
@@ -87,7 +87,8 @@ const Multiple = ({handleInput, index, input}) => {
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3"
-              name='correctAns' 
+              name='correctAns'
+              defaultValue={input.rightAnswer} 
               onChange={(event) =>handleInput(event,index)}
               placeholder='write your answer'>
               </textarea>
@@ -101,6 +102,8 @@ const Multiple = ({handleInput, index, input}) => {
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3"
+              defaultValue={input.mark
+              }
               name='questionMark' 
               onChange={(event) =>handleInput(event,index)}
               placeholder='write question mark'/>

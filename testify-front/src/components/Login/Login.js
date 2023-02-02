@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { UserContext } from '../../Context/UserProvider/UserProvider';
 import './Login.css'
 
@@ -24,8 +25,15 @@ const Login = () => {
 })
 .then(res => res.json())
 .then(data =>{
-   setUser(data.result);
-   setLoading(false);
+  console.log(data)
+   if(data.success === true){
+    setUser(data.result);
+    setLoading(false);
+   }
+ else{
+  toast(data.message)
+ }
+   
    localStorage.setItem('token', data.token);
 })
   }

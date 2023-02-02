@@ -19,9 +19,9 @@ const Question = ({ques,inx,setAnswer,createAnswer}) => {
               <label>
                <input
               type="radio"
-              name='option'
+              name={`${ques.id}`}
               value='a'
-              onChange={(e) => createAnswer(e.target.value, ques.id)}
+              // onChange={(e) => createAnswer(e.target.value, ques.id)}
                />
                {options.a}
              </label>
@@ -30,9 +30,9 @@ const Question = ({ques,inx,setAnswer,createAnswer}) => {
               <label>
                <input
               type="radio"
-              name='option'
+              name={`${ques.id}`}
               value='b'
-              onChange={(e) => createAnswer(e.target.value, ques.id)}
+              // onChange={(e) => createAnswer(e.target.value, ques.id)}
                />
                {options.b}
              </label>
@@ -41,9 +41,9 @@ const Question = ({ques,inx,setAnswer,createAnswer}) => {
               <label>
                <input
               type="radio"
-              name='option'
+              name={`${ques.id}`}
               value='c'
-              onChange={(e) => createAnswer(e.target.value, ques.id)}
+              // onChange={(e) => createAnswer(e.target.value, ques.id)}
                />
                {options.c}
              </label>
@@ -52,9 +52,9 @@ const Question = ({ques,inx,setAnswer,createAnswer}) => {
               <label>
                <input
               type="radio"
-              name='option'
+              name={`${ques.id}`}
               value='d'
-              onChange={(e) => createAnswer(e.target.value, ques.id)}
+              // onChange={(e) => createAnswer(e.target.value, ques.id)}
                />
                {options.d}
              </label>

@@ -1,39 +1,55 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
+import { UserContext } from '../../Context/UserProvider/UserProvider';
 
 const SubmissionList = () => {
+  const [submissions, setSubmissions] =  useState([]);
+  const {user} = useContext(UserContext)
+
+  useEffect(()=>{
+    fetch('http://localhost:5000/api/submission/list',
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `JWT ${localStorage.getItem('token')}`
+      }
+  })
+  .then(res => res.json())
+  .then(data =>{ 
+    setSubmissions(data.result)
+      console.log(data)
+  })
+  },[])
     return (
         <div className='container'>
-        <h2 className='my-4  text-center'>Submission List</h2>
+        <h2 className='my-4  text-center'>  {
+           user && user.type === 'student' ? 'Marks' :'Submission List'
+          }</h2>
        <div className='my-5'>
        <Table striped bordered hover variant="dark">
   <thead>
     <tr>
       <th>#</th>
-      <th>Student Name</th>
+      <th>Assessment Name</th>
+      {user && user?.type === 'teacher' && <th>Student Name</th>}
       <th>Date</th>
       <th> Marks</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
+    {
+      submissions.map((submission, i)=>
+      <tr key={i}>
+      <td>{i+1}</td>
+      <td>1 team</td>
+      {user && user?.type === 'teacher' && <th>Moutosi</th>}
       <td>Otto</td>
       <td>@mdo</td>
     </tr>
-    <tr>
-      <td>2</td>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
+      )
+    }
+   
+ 
   </tbody>
 </Table>
        </div>

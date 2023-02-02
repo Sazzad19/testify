@@ -18,6 +18,15 @@ exports.create = (req, res) => {
                 });
             }
             req.body.justified = true;
+        }else if(assessment.type == "broad"){
+            if(assessment.Questions){
+                assessment.Questions.forEach(question => {
+                    const questionAnswer = req.body.answers.find(answer => answer.questionId == question.id)
+                    // if(questionAnswer && questionAnswer.answer && question.rightAnswer.toLowerCase() === questionAnswer.answer.trim().toLowerCase()){
+                    //     totalMarks = totalMarks + question.mark;
+                    // }
+                });
+            }
         }
         Submission.create({...req.body, obtainedMarks: totalMarks, UserId: req.user.id}).then(submission => {
             res.send({success: true, result: submission})

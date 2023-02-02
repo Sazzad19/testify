@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
+import { Link } from 'react-router-dom';
 
 
 const AssessmentsList = () => {
@@ -43,7 +44,11 @@ const AssessmentsList = () => {
             <td>{assessment.name}</td>
             <td>{assessment.questionCount}</td>
             <td>{assessment.totalMarks}</td>
-            <td><button className='btn btn-primary'>Edit</button></td>
+            <td>
+              <Link to={`/assessments/edit/${assessment.id}`}>
+              <button className='btn btn-primary'>Edit</button>
+              </Link>
+              </td>
           </tr>
             )
         }

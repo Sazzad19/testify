@@ -28,12 +28,7 @@ const Header = () => {
         </NavLink>
       </div>
       <div className={`nav-link ${open ? 'top-4' : 'top-120'}`}>
-        {/* <NavLink
-          className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
-          to="home"
-        >
-          Home
-        </NavLink> */}
+      
 
         {
           token && user && user?.type === 'teacher' ?   
@@ -45,12 +40,6 @@ const Header = () => {
         </NavLink>
         <NavLink
           className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
-          to="submission"
-        >
-            Submission
-        </NavLink>
-        <NavLink
-          className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
           to="admin"
         >
           Admin
@@ -58,6 +47,17 @@ const Header = () => {
         </>
         :
         <></>
+        }
+        {token && user &&
+          <NavLink
+          className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
+          to="submission"
+        >
+          {
+           user && user.type === 'student' ? 'Marks' :'Submission'
+          }
+            
+        </NavLink>
         }
         {
           token && user && user?.type === 'student' ? 
