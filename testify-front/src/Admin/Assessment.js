@@ -46,14 +46,14 @@ const Assessment = () => {
       const questionToSend = {}
       questionToSend.question = question.question;
       questionToSend.type = question.type;
-      questionToSend.rightAnswer = question.correctAns;
-      questionToSend.mark = question.questionMark;
+      questionToSend.rightAnswer = question.rightAnswer;
+      questionToSend.mark = question.mark;
     
       const optionToSend = {}
-      optionToSend.a = question.option1;
-      optionToSend.b = question.option2;
-      optionToSend.c = question.option3;
-      optionToSend.d = question.option4;
+      optionToSend.a = question.a;
+      optionToSend.b = question.b;
+      optionToSend.c = question.c;
+      optionToSend.d = question.d;
 
       questionToSend.options = optionToSend
 

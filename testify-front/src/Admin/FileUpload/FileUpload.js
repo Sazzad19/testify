@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 
 
 
-const FileUpload = ({handleInput, index}) => {
+const FileUpload = ({handleInput, index, input}) => {
     return (
         <div className='my-3'>
              <Row>
@@ -14,7 +14,8 @@ const FileUpload = ({handleInput, index}) => {
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3"
-              name='question' 
+              name='question'
+              defaultValue={input?.question} 
               type="text" 
               onChange={(event) =>handleInput(event,index)}
               placeholder='write your question'>
@@ -43,7 +44,8 @@ const FileUpload = ({handleInput, index}) => {
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3"
-              name='questionMark' 
+              name='mark' 
+              defaultValue={input?.mark} 
               onChange={(event) =>handleInput(event,index)}
               placeholder='write question mark'>
               </textarea>

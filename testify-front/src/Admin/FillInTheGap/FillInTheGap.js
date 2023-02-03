@@ -31,9 +31,9 @@ const FillInTheGap = ({handleInput, index, input}) => {
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3"
-              defaultValue={input?.question
+              defaultValue={input?.rightAnswer
               }
-              name='correctAns' 
+              name='rightAnswer' 
               onChange={(event) =>handleInput(event,index)}
               placeholder='write your question'>
               </textarea>
@@ -47,9 +47,9 @@ const FillInTheGap = ({handleInput, index, input}) => {
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3"
-              defaultValue={input?.rightAnswer
+              defaultValue={input?.mark
               }
-              name='questionMark' 
+              name='mark' 
               onChange={(event) =>handleInput(event,index)}
               placeholder='write question mark'/>
             

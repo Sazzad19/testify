@@ -13,7 +13,8 @@ exports.create = (req, res) => {
                 assessment.Questions.forEach(question => {
                     const questionAnswer = req.body.answers.find(answer => answer.questionId == question.id)
                     if(questionAnswer && questionAnswer.answer && question.rightAnswer.toLowerCase() === questionAnswer.answer.trim().toLowerCase()){
-                        totalMarks = totalMarks + question.mark;
+                        if(Number(question.mark))
+                        totalMarks = totalMarks + Number(question.mark);
                     }
                 });
             }
@@ -47,6 +48,22 @@ exports.findAll = (req, res) => {
         condition.AssessmentId = req.params['assessmentId']
     }
     Submission.findAll({where: condition}).then(data => {
+        res.send({success: true, result: data})
+    }).catch(error =>{
+        res.status(500).send({
+            success: false,
+            message:
+            error.message || "Some error occurred while retrieving data."
+          });
+    })
+}
+
+exports.findOne = (req, res) => {
+    const condition = {};
+    if(req.params['id']){
+        condition.id = req.params['id']
+    }
+    Submission.findByPk(req.params['id']).then(data => {
         res.send({success: true, result: data})
     }).catch(error =>{
         res.status(500).send({

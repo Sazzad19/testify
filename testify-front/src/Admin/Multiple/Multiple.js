@@ -29,7 +29,7 @@ const Multiple = ({handleInput, index, input}) => {
               id="textAreaExample6"
               rows="3"
               defaultValue={input?.options?.a}
-              name='option1'
+              name='a'
               onChange={(event) =>handleInput(event,index)}
               placeholder='write your Option a'>
               </textarea>
@@ -44,7 +44,7 @@ const Multiple = ({handleInput, index, input}) => {
               id="textAreaExample6" 
               rows="3" 
               onChange={(event) =>handleInput(event,index)}
-              name='option2'
+              name='b'
               defaultValue={input?.options?.b}
               placeholder='write your Option b'>
              </textarea>
@@ -54,7 +54,7 @@ const Multiple = ({handleInput, index, input}) => {
         <div className="form-outline mb-4">
               <label className="form-label fw-bold" htlmfor="textAreaExample6">c</label>
              <textarea
-              name='option3'
+              name='c'
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3" 
@@ -68,7 +68,7 @@ const Multiple = ({handleInput, index, input}) => {
         <div className="form-outline mb-4">
               <label className="form-label fw-bold" htlmfor="textAreaExample6">d</label>
               <textarea 
-              name='option4'
+              name='d'
               className="form-control bg-light"
               onChange={(event) =>handleInput(event,index)}
               id="textAreaExample6" 
@@ -87,7 +87,7 @@ const Multiple = ({handleInput, index, input}) => {
               className="form-control bg-light" 
               id="textAreaExample6"
               rows="3"
-              name='correctAns'
+              name='rightAnswer'
               defaultValue={input.rightAnswer} 
               onChange={(event) =>handleInput(event,index)}
               placeholder='write your answer'>
@@ -104,7 +104,7 @@ const Multiple = ({handleInput, index, input}) => {
               rows="3"
               defaultValue={input.mark
               }
-              name='questionMark' 
+              name='mark' 
               onChange={(event) =>handleInput(event,index)}
               placeholder='write question mark'/>
              

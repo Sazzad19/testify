@@ -7,14 +7,16 @@ import Form from "react-bootstrap/Form";
 import Multiple from '../../Admin/Multiple/Multiple';
 import FillInTheGap from '../../Admin/FillInTheGap/FillInTheGap';
 import FileUpload from '../../Admin/FileUpload/FileUpload';
-import FormRange from 'react-bootstrap/esm/FormRange';
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 
 const EditAssessments = () => {
 
     let { id } = useParams();
-    const [assessments, setAssessments] = useState([])
+    const [assessments, setAssessments] = useState({})
     const [questions, setQuestions] = useState([])
+    const navigate = useNavigate();
 
     useEffect( ()=>{
     fetch(`http://localhost:5000/api/assessment/details/${id}`,
@@ -35,63 +37,40 @@ const EditAssessments = () => {
         })
     }, [id]);
 
-    const handleInput = ()=>{
-    }
-
+    // const handleInput = ()=>{
+    // }
+    const handleInput = (event,index)=>{
+      if(['a', 'b', 'c', 'd'].indexOf(event.target.name) != -1){
+        questions[index]['options'][event.target.name] = event.target.value;
+      }else{
+        questions[index][event.target.name] = event.target.value;
+      }
+      setQuestions([...questions]);
+      }
+    const handleAssessment = (event)=>{
+      assessments[event.target.name] = event.target.value;
+      setAssessments(assessments);
+      }
     const handleSubmit = (event)=>{
       event.preventDefault();
-  
-      const data = new FormData(event.target);
-      console.log("keysssss", data);
-      // for(let key of data.keys()){
-      //   console.log(key, data.get(key))
-      // }
-      // const questionInfo = [];
-      // inputFields.forEach(question =>{
-      //   const questionToSend = {}
-      //   questionToSend.question = question.question;
-      //   questionToSend.type = question.type;
-      //   questionToSend.rightAnswer = question.correctAns;
-      //   questionToSend.mark = question.questionMark;
-      
-      //   const optionToSend = {}
-      //   optionToSend.a = question.option1;
-      //   optionToSend.b = question.option2;
-      //   optionToSend.c = question.option3;
-      //   optionToSend.d = question.option4;
-  
-      //   questionToSend.options = optionToSend
-  
-  
-      //   questionInfo.push(questionToSend)
-  
-      // })
-  
-      // const assesmentInfo = {
-      //   name: form.name.value,
-      //   class : form.class.value,
-      //   totalMarks:  0,
-      //   subject: form.subject.value,
-      //   timeLimit: form.timeDuration.value,
-      //   type: typeSelect,
-      //   questions: questionInfo
-      // }
+      assessments.questions = questions;
+      delete assessments.id
      
-    //   fetch('http://localhost:5000/api/assessment/create',{
-    //     method: 'POST',
-    //     headers: {
-    //         'content-type': 'application/json',
-    //         Authorization: `JWT ${localStorage.getItem('token')}`
-    //     },
-    //     body: JSON.stringify(assesmentInfo)
-    // })
-    // .then(res => res.json())
-    // .then(data =>{
-    //   if(data.success){
-    //     navigate('/assessments');
-    //     toast('Assessment Create Successfully')
-    //   }
-    //   })
+      fetch(`http://localhost:5000/api/assessment/update/${id}`,{
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json',
+            Authorization: `JWT ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(assessments)
+    })
+    .then(res => res.json())
+    .then(data =>{
+      if(data.success){
+        navigate('/assessments');
+        toast('Assessment Updated Successfully')
+      }
+      })
     }
     return (
     <div className='container'>
@@ -103,7 +82,8 @@ const EditAssessments = () => {
             <Form.Control type="text" name="name" 
             defaultValue={assessments.name
             }
-            placeholder="assessment name" />
+            placeholder="assessment name"
+            onChange={(event) =>handleAssessment(event)} />
           </FloatingLabel>
         </Col>
         <Col md>
@@ -111,7 +91,8 @@ const EditAssessments = () => {
             <Form.Control type="text"
             defaultValue={assessments.class
             }
-            name="class"  placeholder="class" />
+            name="class"  placeholder="class"
+            onChange={(event) =>handleAssessment(event)} />
           </FloatingLabel>
         </Col>
       </Row>
@@ -122,7 +103,8 @@ const EditAssessments = () => {
             <Form.Control type="text" 
             defaultValue={assessments.subject
             }
-            name="subject"  placeholder="subject" />
+            name="subject"  placeholder="subject"
+            onChange={(event) =>handleAssessment(event)} />
           </FloatingLabel>
         </Col>
     
@@ -131,7 +113,8 @@ const EditAssessments = () => {
             <Form.Control type="text" 
             defaultValue={assessments.timeLimit
             }
-            name="timeDuration"  placeholder="time duration" />
+            name="timeDuration"  placeholder="time duration"
+            onChange={(event) =>handleAssessment(event)} />
           </FloatingLabel>
         </Col>
       </Row>

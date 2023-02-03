@@ -10,7 +10,7 @@ exports.create = (req, res) => {
         let totalMarks = 0;
         let questionCount = 0;
         questions.forEach(async question => {
-            if(question.mark){ totalMarks = totalMarks + question.mark}
+            if(Number(question.mark)){ totalMarks = totalMarks + Number(question.mark)}
             questionCount = questionCount +1;
             await  Question.create({...question, AssessmentId: assessment.id })
         })
@@ -55,6 +55,38 @@ exports.findOne = (req, res) => {
             success: false,
             message:
             error.message || "Some error occurred while retrieving data."
+          });
+    })
+}
+
+exports.update = (req, res) => {
+    const condition = {};
+    condition.id = req.params.id;
+    const input = req.body;
+    let totalMarks = 0;
+    let questionCount = 0;
+    Assessment.update(input, {where: condition, returning: true}).then(assessment => {
+        input.questions.forEach(async question => {
+            if(Number(question.mark)){ totalMarks = totalMarks + Number(question.mark)}
+            questionCount = questionCount +1;
+            await  Question.update({...question}, {where: {id: question.id}})
+        })
+
+        Assessment.update({questionCount, totalMarks}, {where: condition, returning: true})
+        .then((data)=>{
+            res.send({success: true, result: data})
+        }).catch(error => {
+            res.status(500).send({
+                success: false,
+                message:
+                error.message || "Some error occurred while updating data."
+              });
+        })
+    }).catch(error =>{
+        res.status(500).send({
+            success: false,
+            message:
+            error.message || "Some error occurred while updating data."
           });
     })
 }
