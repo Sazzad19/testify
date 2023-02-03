@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Admin from "../../Admin/Admin";
+import AssessmentMarks from "../../components/AssessmentMarks/AssessmentMarks";
 import AssessmentsList from "../../components/AssessmentsList/AssessmentsList";
 import EditAssessments from "../../components/EditAssessments/EditAssessments";
 import Home from "../../components/Home/Home";
@@ -58,6 +59,10 @@ import TeacherPrivateRoure from "../TeacherPrivateRoute/TeacherPrivateRoure";
         {
           path: 'submission',
           element: <CommonPrivateRoute><SubmissionList></SubmissionList></CommonPrivateRoute>
+        },
+        {
+          path: 'assessmentsMark',
+          element: <TeacherPrivateRoure><AssessmentMarks></AssessmentMarks></TeacherPrivateRoure>
         },
 
       ]

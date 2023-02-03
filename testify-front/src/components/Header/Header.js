@@ -38,6 +38,11 @@ const Header = () => {
           to="assessments">
           Assessments
         </NavLink>
+          <NavLink
+          className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
+          to="assessmentsMark">
+          AssessmentsMarks
+        </NavLink>
         <NavLink
           className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
           to="admin"
