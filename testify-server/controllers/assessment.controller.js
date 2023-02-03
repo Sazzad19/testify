@@ -39,7 +39,6 @@ exports.findAll = (req, res) => {
             if(assessment.Submissions){
                 const userIds =  assessment.Submissions.map(submission => submission.UserId)
                 if(userIds.includes(req.user.id)){
-                console.log("Submission", index);
                 assessment.setDataValue('submittedByUser', true);
                 }
             }

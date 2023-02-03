@@ -113,7 +113,7 @@ const EditAssessments = () => {
             <Form.Control type="text" 
             defaultValue={assessments.timeLimit
             }
-            name="timeDuration"  placeholder="time duration"
+            name="timeLimit"  placeholder="time duration"
             onChange={(event) =>handleAssessment(event)} />
           </FloatingLabel>
         </Col>
