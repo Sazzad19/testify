@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { UserContext } from '../../../Context/UserProvider/UserProvider';
@@ -13,11 +13,34 @@ const AssessmentDetalis = () => {
     const [Assessment, setAssessment] =  useState({});
     const [questions, setQuestions] =  useState([]);
     const {user} = useContext(UserContext);
-    const [answers, setAnswers] = useState([])
+    const [answers] = useState([])
+    const [count, setCount] = useState(0);
+    const [timeCountDown, setTimeCountDown] = useState(0);
+
+    const [countInTimeout, setCountInTimeout] = useState(0);
     let { id } = useParams();
     const navigate = useNavigate();
+    const formToSubmit = useRef();
 
-    const subject = Assessment?.subject;
+   
+   const createSubmit = ()=>{
+    formToSubmit.current.dispatchEvent(
+      new Event("submit", { cancelable: true, bubbles: true })
+    );
+   }
+
+    useEffect(() => {
+      setTimeout(() => {
+        createSubmit()
+      }, Assessment.timeLimit*60000);
+    }, []);
+
+    useEffect(() => {
+      setInterval(() => {
+        setTimeCountDown(timeCountDown+1)
+      }, 60000);
+    }, []);
+
     useEffect( ()=>{
     fetch(`http://localhost:5000/api/assessment/details/${id}`,
           {
@@ -36,13 +59,13 @@ const AssessmentDetalis = () => {
 
     const handleSubmission = async (event)=>{
       event.preventDefault();
-      // const answers = [];
+    
 
         const form = event.target;
         const data = new FormData(form)
         
         for(let name of data.keys()){
-          if(answers.findIndex(ans => ans.questionId == name) == -1){
+          if(answers.findIndex(ans => ans.questionId === name) === -1){
             answers.push({questionId: name, type: "text", answer: data.get(name)})
           }
         }
@@ -85,24 +108,23 @@ const AssessmentDetalis = () => {
   })
 
     }
+    
     const handleFileChange = (event, questionId) => {
-      // console.log(event.target.files);
-      // const file = event.target.files[0]
-      // const newFile = new Blob([file], { type: file.type })
       answers.push({questionId: questionId, type: "file", answer: event.target.files[0]})
     }
-    // const createAnswer = (answer, quesId)=>{
-    //   if(answer){
-    //     setAnswer([...answer, {questionId: quesId, answer: answer}])
-    //   }
-    //   else{
-    //     setAnswer(answer.filter(ans => ans.id !== quesId))
-    //   }
-    // }
+ 
     return (
-        <div className='questions-container my-5'>
-        <h1 className='quiz-name'>{subject}</h1>
-        <form onSubmit={handleSubmission}>
+        <div className='container my-5'>
+        <h2 className='mb-5 text-center'>{Assessment.name}</h2>
+        <div className='d-flex justify-content-between mb-5'>
+          <h5>Class: {Assessment.class}</h5>
+          <h5>Subject: {Assessment.subject}</h5>
+          <h5>Total Marks: {Assessment.totalMarks}</h5>
+          <h5>Time Limit: {Assessment.timeLimit} Minutes</h5>
+          <h5>Time Left: {Assessment.timeLimit - timeCountDown} Minutes</h5>
+        </div>
+    
+        <form onSubmit={handleSubmission} ref={formToSubmit}>
         <div>
         
 
@@ -145,7 +167,7 @@ const AssessmentDetalis = () => {
         <button className='btn btn-primary w-25'>Submit</button>
         </div>
         </form>
-    </div>
+         </div>
     );
 };
 

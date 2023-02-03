@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { Link } from 'react-router-dom';
+import { AiTwotoneFolderOpen } from "react-icons/ai";
 
 
 const AssessmentsList = () => {
@@ -37,8 +38,7 @@ const AssessmentsList = () => {
         </tr>
       </thead>
       <tbody>
-        {
-          assessments.map((assessment , index)=>
+        { assessments.map((assessment , index)=>
             <tr key={index}>
             <td>{index+1}</td>
             <td>{assessment.name}</td>
