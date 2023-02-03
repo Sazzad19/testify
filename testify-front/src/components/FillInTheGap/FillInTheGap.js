@@ -1,7 +1,7 @@
 import React from "react";
 import "./FillInTheGap.css";
 
-const FillInTheGap = ({ques,inx, createAnswer}) => {
+const FillInTheGap = ({ques,inx, }) => {
   const {question} = ques;
   return (
     <div>
