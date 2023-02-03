@@ -91,17 +91,17 @@ const AssessmentDetalis = () => {
       // const newFile = new Blob([file], { type: file.type })
       answers.push({questionId: questionId, type: "file", answer: event.target.files[0]})
     }
-    // const createAnswer = (answer, quesId)=>{
-    //   if(answer){
-    //     setAnswer([...answer, {questionId: quesId, answer: answer}])
-    //   }
-    //   else{
-    //     setAnswer(answer.filter(ans => ans.id !== quesId))
-    //   }
-    // }
+ 
     return (
-        <div className='questions-container my-5'>
-        <h1 className='quiz-name'>{subject}</h1>
+        <div className='container my-5'>
+        <h2 className='mb-5 text-center'>{Assessment.name}</h2>
+        <div className='d-flex justify-content-between mb-5'>
+          <h5>Class: {Assessment.class}</h5>
+          <h5>Subject: {Assessment.subject}</h5>
+          <h5>Total Marks: {Assessment.totalMarks}</h5>
+          <h5>Time Limit: {Assessment.timeLimit}</h5>
+        </div>
+        
         <form onSubmit={handleSubmission}>
         <div>
         
@@ -145,7 +145,7 @@ const AssessmentDetalis = () => {
         <button className='btn btn-primary w-25'>Submit</button>
         </div>
         </form>
-    </div>
+         </div>
     );
 };
 
