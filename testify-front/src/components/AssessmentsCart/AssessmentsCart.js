@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './AssessmentsCart.css'
 
 const AssessmentsCart = ({cart}) => {
-    const {name,subject, id,totalMarks,timeLimit} = cart;
+    const {name,subject, id,totalMarks,timeLimit, submittedByUser} = cart;
     return (
         <div className='cart-container'>
             <div className='cart-logo d-flex align-items-center justify-content-center p-2'>
@@ -15,7 +15,7 @@ const AssessmentsCart = ({cart}) => {
             <p className='uppercase fw-bold'>{name}</p>
             <p> Total Quiz: {totalMarks}</p>
             <p> Time Limit: {timeLimit} min</p>
-            <Link to={`assessments/details/${id}`}><button className='practice-btn'>Start Test</button></Link>
+            {submittedByUser ?<Link><button className='practice-btn'>Submitted</button></Link> : <Link to={`assessments/details/${id}`}><button className='practice-btn'>Start Test</button></Link>  }
                 </div>
             </div>
         </div>

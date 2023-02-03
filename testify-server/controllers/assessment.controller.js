@@ -1,6 +1,7 @@
 const db = require("../models");
 const Assessment = db.Assessment;
 const Question = db.Question;
+const Submission = db.Submission;
 const Op = db.Sequelize.Op;
 
 
@@ -33,7 +34,17 @@ exports.findAll = (req, res) => {
     }else if(req.user && req.user.type === 'student'){
         condition.class = req.user.class;
     }
-    Assessment.findAll({where: condition}).then(data => {
+    Assessment.findAll({where: condition, include: {model: Submission}}).then(data => {
+        data.forEach((assessment, index) => {
+            if(assessment.Submissions){
+                const userIds =  assessment.Submissions.map(submission => submission.UserId)
+                if(userIds.includes(req.user.id)){
+                console.log("Submission", index);
+                assessment.setDataValue('submittedByUser', true);
+                }
+            }
+
+        })
         res.send({success: true, result: data})
     }).catch(error =>{
         res.status(500).send({
