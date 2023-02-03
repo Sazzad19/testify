@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../../Context/UserProvider/UserProvider';
 
 const SubmissionList = () => {
@@ -41,10 +42,11 @@ const SubmissionList = () => {
       submissions.map((submission, i)=>
       <tr key={i}>
       <td>{i+1}</td>
-      <td>1 team</td>
-      {user && user?.type === 'teacher' && <th>Moutosi</th>}
-      <td>Otto</td>
-      <td>@mdo</td>
+      <td>{submission.Assessment.name}</td>
+      {user && user?.type === 'teacher' && <th>{submission.User.name}</th>}
+      <td>{new Date(submission.createdAt).toLocaleDateString()}</td>
+      <td>{submission.obtainedMarks ? submission.obtainedMarks : user?.type === 'teacher' ? <Link to={`assessmentsMark/${submission.id}`}><button className='btn btn-primary'>Mark Now</button></Link>: 'Due to Mark'}</td>
+
     </tr>
       )
     }

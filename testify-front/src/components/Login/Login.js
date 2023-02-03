@@ -34,7 +34,8 @@ const Login = () => {
   toast(data.message)
  }
    
-   localStorage.setItem('token', data.token);
+   localStorage.setItem('token', data.token)
+   localStorage.setItem('userType', data.result.type);
 })
   }
   useEffect(()=>{

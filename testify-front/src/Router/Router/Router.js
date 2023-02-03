@@ -61,7 +61,7 @@ import TeacherPrivateRoure from "../TeacherPrivateRoute/TeacherPrivateRoure";
           element: <CommonPrivateRoute><SubmissionList></SubmissionList></CommonPrivateRoute>
         },
         {
-          path: 'assessmentsMark',
+          path: 'submission/assessmentsMark/:id',
           element: <TeacherPrivateRoure><AssessmentMarks></AssessmentMarks></TeacherPrivateRoure>
         },
 

@@ -4,10 +4,11 @@ import { UserContext } from '../../Context/UserProvider/UserProvider';
 
 const CommonPrivateRoute = ({children}) => {
     const {user} = useContext(UserContext);
-  
+    const userType = localStorage.getItem('userType');
+
     const location = useLocation();
    
-        if(user){
+        if(userType){
             return children
         }
         return <Navigate to='/' state={{from: location}} replace ></Navigate>

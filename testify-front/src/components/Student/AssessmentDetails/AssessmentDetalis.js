@@ -5,6 +5,7 @@ import { UserContext } from '../../../Context/UserProvider/UserProvider';
 import FillInTheGap from '../../FillInTheGap/FillInTheGap';
 import Question from '../../Question/Question';
 import BroadQuestion from '../BroadQuestion/BroadQuestion';
+import { useNavigate } from 'react-router-dom';
 
 
 const AssessmentDetalis = () => {
@@ -12,9 +13,10 @@ const AssessmentDetalis = () => {
     const [Assessment, setAssessment] =  useState({});
     const [questions, setQuestions] =  useState([]);
     const {user} = useContext(UserContext);
-
+    const [answers, setAnswers] = useState([])
     let { id } = useParams();
-  
+    const navigate = useNavigate();
+
     const subject = Assessment?.subject;
     useEffect( ()=>{
     fetch(`http://localhost:5000/api/assessment/details/${id}`,
@@ -32,18 +34,32 @@ const AssessmentDetalis = () => {
         })
     }, [id]);
 
-    const handleSubmission = (event)=>{
+    const handleSubmission = async (event)=>{
       event.preventDefault();
-      const answers = [];
+      // const answers = [];
 
         const form = event.target;
         const data = new FormData(form)
         
         for(let name of data.keys()){
-          answers.push({questionId: name, answer: data.get(name)})
+          if(answers.findIndex(ans => ans.questionId == name) == -1){
+            answers.push({questionId: name, type: "text", answer: data.get(name)})
+          }
         }
         console.log('array', answers)
 
+        for(let answer of answers){
+          if(answer.type && answer.type === "file"){
+            let formData = new FormData()
+            formData.append('file', answer.answer)
+            const response = await fetch('http://localhost:5000/upload', {
+              method: 'POST',
+              body: formData,
+            })
+            let res = await response.json()
+            answer.answer = res.result;          
+          }
+        }
         const submissionInfo = {
           UserId: user.id,
           AssessmentId: Assessment.id,
@@ -63,13 +79,18 @@ const AssessmentDetalis = () => {
   .then(data =>{
     if(data.success)
     {
+      navigate('/assessments-student');
       toast('Submission successFully')
-      console.log('submission', data)
     }
   })
 
     }
-
+    const handleFileChange = (event, questionId) => {
+      // console.log(event.target.files);
+      // const file = event.target.files[0]
+      // const newFile = new Blob([file], { type: file.type })
+      answers.push({questionId: questionId, type: "file", answer: event.target.files[0]})
+    }
     // const createAnswer = (answer, quesId)=>{
     //   if(answer){
     //     setAnswer([...answer, {questionId: quesId, answer: answer}])
@@ -112,7 +133,7 @@ const AssessmentDetalis = () => {
              <BroadQuestion
              ques={ques}
              inx={inx}
-        
+             onFileChange={handleFileChange}
              ></BroadQuestion>)
              }
              </>

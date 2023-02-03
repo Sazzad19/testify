@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './BroadQuestion.css'
 
-const BroadQuestion = ({ques,inx, createAnswer}) => {
+const BroadQuestion = ({ques,inx, onFileChange}) => {
     const {question} = ques;
     const [type, setType] = useState('');
     const optionSelect = (event)=>{
@@ -37,7 +37,7 @@ const BroadQuestion = ({ques,inx, createAnswer}) => {
           type === 'file' &&
           <input
           // onChange={(e)=>createAnswer(e.target.value,ques.id)}
-          type="file"   name={`${ques.id}`} id="classNumber" placeholder="file upload" />
+          type="file"   name={`${ques.id}`} id="classNumber" placeholder="file upload"  onChange={e => onFileChange(e, ques.id)} />
         }
       </div>
 

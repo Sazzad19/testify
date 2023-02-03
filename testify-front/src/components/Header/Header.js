@@ -7,10 +7,14 @@ const Header = () => {
   const [open, setOpen] = useState(false);
   const {user, setUser} = useContext(UserContext);
   const token = localStorage.getItem('token');
+  const userType = localStorage.getItem('userType');
+
   const navigate = useNavigate();
 
  const logOut =()=>{
   localStorage.removeItem('token');
+  localStorage.removeItem('userType');
+
   setUser(null)
   navigate('/')
   console.log("clikkk");
@@ -31,41 +35,36 @@ const Header = () => {
       
 
         {
-          token && user && user?.type === 'teacher' ?   
+          userType === 'teacher' ?   
           <>
           <NavLink
           className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
           to="assessments">
           Assessments
         </NavLink>
-          <NavLink
-          className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
-          to="assessmentsMark">
-          AssessmentsMarks
-        </NavLink>
         <NavLink
           className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
           to="admin"
         >
-          Admin
+          Test Create
         </NavLink>
         </>
         :
         <></>
         }
-        {token && user &&
+        {userType &&
           <NavLink
           className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
           to="submission"
         >
           {
-           user && user.type === 'student' ? 'Marks' :'Submission'
+           userType === 'student' ? 'Marks' :'Submission'
           }
             
         </NavLink>
         }
         {
-          token && user && user?.type === 'student' ? 
+          userType === 'student' ? 
           <NavLink
           className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
           to="assessments-student">
@@ -75,7 +74,7 @@ const Header = () => {
         <></>
         }
       
-      {!user ? 
+      {!userType ? 
               <NavLink
               className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
               to="/"
@@ -85,7 +84,7 @@ const Header = () => {
             <></>
     }
 
-{user ? 
+{userType ? 
               <button
               className='btn btn-primary ms-3'
             onClick={logOut}
@@ -96,7 +95,7 @@ const Header = () => {
     }
 
 
-       { !user ? 
+       { !userType ? 
         <NavLink
           className={({ isActive }) => (isActive ? "activeStyle" : "inactive")}
           to="signUp"
