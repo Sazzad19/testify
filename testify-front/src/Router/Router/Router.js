@@ -6,6 +6,7 @@ import EditAssessments from "../../components/EditAssessments/EditAssessments";
 import Home from "../../components/Home/Home";
 import Login from "../../components/Login/Login";
 import NotFound from "../../components/NotFound/NotFound";
+import ProfileEdit from "../../components/ProfileEdit/ProfileEdit";
 import QuizDetails from "../../components/QuizDetails/QuizDetails";
 import SignUp from "../../components/SignUp/SignUp";
 import AssessmentDetalis from "../../components/Student/AssessmentDetails/AssessmentDetalis";
@@ -59,6 +60,10 @@ import TeacherPrivateRoure from "../TeacherPrivateRoute/TeacherPrivateRoure";
         {
           path: 'submission',
           element: <CommonPrivateRoute><SubmissionList></SubmissionList></CommonPrivateRoute>
+        },
+        {
+          path: 'profile/edit',
+          element: <CommonPrivateRoute><ProfileEdit></ProfileEdit></CommonPrivateRoute>
         },
         {
           path: 'submission/assessmentsMark/:id',
