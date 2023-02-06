@@ -5,9 +5,9 @@ import { UserContext } from '../../Context/UserProvider/UserProvider';
 import './Login.css'
 
 const Login = () => {
-   const {setUser, user, setLoading, loading} = useContext(UserContext);
+   const {setUser, user, setLoading} = useContext(UserContext);
    const navigate = useNavigate();
-
+    
   const handleLoginSubmit = (event)=>{
     event.preventDefault();
     const form = event.target;
@@ -36,10 +36,11 @@ const Login = () => {
    
    localStorage.setItem('token', data.token)
    localStorage.setItem('userType', data.result.type);
+   localStorage.setItem('userInfo', JSON.stringify(data.result));
 })
   }
   useEffect(()=>{
-    if(!loading && user){
+    if(user){
       if(user.type === 'student')
       {
         navigate('/assessments-student')
@@ -48,7 +49,7 @@ const Login = () => {
        navigate('/assessments');
       }
     }
-  },[user])
+  },[user, navigate])
     return (
         <div className="wrapper">
         <div className="logo-login">

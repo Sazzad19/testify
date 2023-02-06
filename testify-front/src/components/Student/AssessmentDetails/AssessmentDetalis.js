@@ -9,10 +9,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 const AssessmentDetalis = () => {
- 
     const [Assessment, setAssessment] =  useState({});
     const [questions, setQuestions] =  useState([]);
-    const {user} = useContext(UserContext);
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const [answers] = useState([])
     const [count, setCount] = useState(0);
     const [timeCountDown, setTimeCountDown] = useState(0);
@@ -88,7 +87,7 @@ const AssessmentDetalis = () => {
           }
         }
         const submissionInfo = {
-          UserId: user.id,
+          UserId: userInfo.id,
           AssessmentId: Assessment.id,
           answers: answers
           }

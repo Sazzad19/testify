@@ -10,7 +10,6 @@ const Home = () => {
     const courseCarts = useLoaderData().data;
     const {user} = useContext(UserContext);
 
-    console.log('user details', user?.success)
     return (
         <div>
             <Slider></Slider>

@@ -16,7 +16,7 @@ const StudentAssessment = () => {
         .then(res => res.json())
         .then(data => {
             setCourseCarts(data.result);
-            console.log('assessment list', data)})
+            })
       }, [])
     return (
         <div className='container'>

@@ -1,13 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ProfileEdit.css'
 import { FiEdit } from "react-icons/fi";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
-import { UserContext } from '../../Context/UserProvider/UserProvider';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileEdit = () => {
-    const {user} = useContext(UserContext);
+   
     const userType = localStorage.getItem('userType');
+    const [user, setUser] = useState({});
+    const navigate = useNavigate();
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    
 
     const handleUpdate= (event)=>{
         event.preventDefault();
@@ -29,18 +34,37 @@ const ProfileEdit = () => {
             
         }
       } 
-    
-    //   fetch('http://localhost:5000/api/signup',{
-    //     method: 'POST',
-    //     headers: {
-    //         'content-type': 'application/json'
-    //     },
-    //     body: JSON.stringify(allUserInfo)
-    // })
-    // .then(res => res.json())
-    // .then(data =>{
+    console.log(allUserInfo)
+      fetch(`http://localhost:5000/api/profile-update/${userInfo.id}`,{
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+            Authorization: `JWT ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(allUserInfo)
+    })
+    .then(res => res.json())
+    .then(data =>{
        
-    // })
+       if(data.success)
+       {
+        toast('successfully update');
+        localStorage.removeItem('userInfo');
+        localStorage.setItem('userInfo', JSON.stringify(data.result))
+       
+        if(userInfo.type === 'student')
+        {
+          navigate('/assessments-student')
+        }
+        else{
+         navigate('/assessments');
+        }
+        
+       }
+       else{
+        toast(data.message);
+       }
+    })
       }
     
     return (
@@ -53,7 +77,7 @@ const ProfileEdit = () => {
                     className="mb-3"
                 >
                     <Form.Control 
-                    defaultValue={user?.name}
+                    defaultValue={userInfo.name}
                     name="name"
                     type="text" placeholder="Your Name" />
                 </FloatingLabel>
@@ -64,7 +88,7 @@ const ProfileEdit = () => {
                     label="Class"
                     className="mb-3"
                 >
-                    <Form.Control name='class' defaultValue={user?.class} type="text" placeholder="class" />
+                    <Form.Control name='class' defaultValue={userInfo.class} type="text" placeholder="class" />
                 </FloatingLabel>
                 }
               
@@ -73,7 +97,7 @@ const ProfileEdit = () => {
                     label="Password"
                     className="mb-3"
                 >
-                    <Form.Control name='password' defaultValue={user?.password} type="password" placeholder="password" />
+                    <Form.Control name='password' defaultValue={userInfo.password} type="password" placeholder="password" />
                 </FloatingLabel>
                 <div className='d-flex justify-content-center'>
                 <button className='btn btn-primary'>Update</button>
