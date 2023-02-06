@@ -18,7 +18,7 @@ const ProfileEdit = () => {
           allUserInfo = {
             name: form.name.value,
             password: form.password.value,
-            class: form.classNumber.value,
+            class: form.class.value,
           
         }
       } 
@@ -54,6 +54,7 @@ const ProfileEdit = () => {
                 >
                     <Form.Control 
                     defaultValue={user?.name}
+                    name="name"
                     type="text" placeholder="Your Name" />
                 </FloatingLabel>
                 {
@@ -63,7 +64,7 @@ const ProfileEdit = () => {
                     label="Class"
                     className="mb-3"
                 >
-                    <Form.Control defaultValue={user?.class} type="text" placeholder="class" />
+                    <Form.Control name='class' defaultValue={user?.class} type="text" placeholder="class" />
                 </FloatingLabel>
                 }
               
@@ -72,7 +73,7 @@ const ProfileEdit = () => {
                     label="Password"
                     className="mb-3"
                 >
-                    <Form.Control  defaultValue={user?.password} type="password" placeholder="password" />
+                    <Form.Control name='password' defaultValue={user?.password} type="password" placeholder="password" />
                 </FloatingLabel>
                 <div className='d-flex justify-content-center'>
                 <button className='btn btn-primary'>Update</button>

@@ -29,18 +29,21 @@ const AssessmentDetalis = () => {
     );
    }
 
-    // useEffect(() => {
-    //   setTimeout(() => {
-    //     createSubmit()
-    //   }, Assessment.timeLimit*60000);
-    // }, []);
+    useEffect(() => {
+      setTimeout(() => {
+        createSubmit()
+      }, Assessment.timeLimit*60000);
+    }, []);
 
-    // useEffect(() => {
-    //   setInterval(() => {
-    //     console.log("timer", timeCountDown);
-    //     setTimeCountDown(timeCountDown+1)
-    //   }, 10000);
-    // }, []);
+    useEffect(() => {
+     const i_id =  setInterval(() => {
+        console.log("timer", timeCountDown);
+        setTimeCountDown(timeCountDown => timeCountDown+1)
+      }, 60000);
+      return () => {
+        clearInterval(i_id);
+      }
+    }, []);
 
     useEffect( ()=>{
     fetch(`http://localhost:5000/api/assessment/details/${id}`,
@@ -66,7 +69,7 @@ const AssessmentDetalis = () => {
         const data = new FormData(form)
         
         for(let name of data.keys()){
-          if(answers.findIndex(ans => ans.questionId === name) === -1){
+          if(answers.findIndex(ans => ans.questionId == name) === -1){
             answers.push({questionId: name, type: "text", answer: data.get(name)})
           }
         }
@@ -122,7 +125,7 @@ const AssessmentDetalis = () => {
           <h5>Subject: {Assessment.subject}</h5>
           <h5>Total Marks: {Assessment.totalMarks}</h5>
           <h5>Time Limit: {Assessment.timeLimit} Minutes</h5>
-          {/* <h5>Time Left: {Assessment.timeLimit - timeCountDown} Minutes</h5> */}
+          <h5>Time Left: {Assessment.timeLimit - timeCountDown} Minutes</h5>
         </div>
     
         <form onSubmit={handleSubmission} ref={formToSubmit}>
