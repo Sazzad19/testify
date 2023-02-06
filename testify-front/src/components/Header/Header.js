@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { FaUserEdit } from "react-icons/fa";
 import { UserContext } from "../../Context/UserProvider/UserProvider";
 import "./Header.css";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
-  const {user, setUser} = useContext(UserContext);
+  const {setUser} = useContext(UserContext);
   const token = localStorage.getItem('token');
   const userType = localStorage.getItem('userType');
 
@@ -85,12 +86,18 @@ const Header = () => {
     }
 
 {userType ? 
-              <button
+             <>
+             <NavLink to='profile/edit'>
+               <FaUserEdit title="Profile Edit" className="text-white mx-2 fs-4"></   FaUserEdit>
+             </NavLink>
+             <button
               className='btn btn-primary ms-3'
             onClick={logOut}
             >
               LogOut
-            </button>: 
+            </button>
+            
+             </> : 
             <></>
     }
 
