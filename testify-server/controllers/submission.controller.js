@@ -55,7 +55,7 @@ exports.findAll = async (req, res) => {
         const assessmentIds = assessments.map(assessment => assessment.id)
         condition.AssessmentId = { [Op.in]: assessmentIds }
     }
-    Submission.findAll({where: condition, include: [{model: Assessment, include: {model: Question}},{model: User}]}).then(data => {
+    Submission.findAll({where: condition, include: [{model: Assessment, include: {model: Question}},{model: User}], order: [['createdAt', 'DESC']]}).then(data => {
         res.send({success: true, result: data})
     }).catch(error =>{
         res.status(500).send({

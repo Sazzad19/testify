@@ -45,7 +45,7 @@ const SubmissionList = () => {
       <td>{submission.Assessment.name}</td>
       {user && user?.type === 'teacher' && <th>{submission.User.name}</th>}
       <td>{new Date(submission.createdAt).toLocaleDateString()}</td>
-      <td>{submission.obtainedMarks ? submission.obtainedMarks : user?.type === 'teacher' ? <Link to={`assessmentsMark/${submission.id}`}><button className='btn btn-primary'>Mark Now</button></Link>: 'Due to Mark'}</td>
+      <td>{submission.justified ? submission.obtainedMarks : user?.type === 'teacher' ? <Link to={`assessmentsMark/${submission.id}`}><button className='btn btn-primary'>Mark Now</button></Link>: 'Due to Mark'}</td>
 
     </tr>
       )

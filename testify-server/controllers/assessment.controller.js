@@ -34,7 +34,7 @@ exports.findAll = (req, res) => {
     }else if(req.user && req.user.type === 'student'){
         condition.class = req.user.class;
     }
-    Assessment.findAll({where: condition, include: {model: Submission}}).then(data => {
+    Assessment.findAll({where: condition, include: {model: Submission}, order: [['createdAt', 'DESC']]}).then(data => {
         data.forEach((assessment, index) => {
             if(assessment.Submissions){
                 const userIds =  assessment.Submissions.map(submission => submission.UserId)

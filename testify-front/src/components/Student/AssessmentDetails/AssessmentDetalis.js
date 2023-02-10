@@ -29,14 +29,15 @@ const AssessmentDetalis = () => {
    }
 
     useEffect(() => {
-      setTimeout(() => {
-        createSubmit()
-      }, Assessment.timeLimit*60000);
-    }, []);
+      if(Assessment.timeLimit){
+        setTimeout(() => {
+          createSubmit()
+        }, Assessment.timeLimit*60000);
+      }
+    }, [Assessment]);
 
     useEffect(() => {
      const i_id =  setInterval(() => {
-        console.log("timer", timeCountDown);
         setTimeCountDown(timeCountDown => timeCountDown+1)
       }, 60000);
       return () => {
