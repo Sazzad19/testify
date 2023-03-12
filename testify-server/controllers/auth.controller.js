@@ -2,7 +2,7 @@ const db = require("../models");
 const User = db.User;
 const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
-
+let signIn = require("../services/signin")
 
 // Retrieve all Tutorials from the database.
 exports.signup = (req, res) => {
@@ -19,24 +19,9 @@ exports.signup = (req, res) => {
 
 
 exports.signin = (req, res) => {
-    User.findOne({where: { email: req.body.email, password: req.body.password}}).then(data => {
-        if(data === null){
-            res.send({success: false, message: "wrong username or password"})
-        }else{
-            var token = jwt.sign({
-                id: data.id
-              }, process.env.API_SECRET);
-              data.token = token
-            res.send({
-                success: true,
-                result: data,
-                token: token
-            }) }
+    signIn(req.body.email, req.body.password).then(data=>{
+        res.send(data)
     }).catch(error =>{
-        res.status(500).send({
-            success: false,
-            message:
-            error.message || "Some error occurred while signup"
-          });
+        res.status(500).send(error);
     })
 }
