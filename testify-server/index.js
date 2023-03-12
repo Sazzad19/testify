@@ -49,3 +49,4 @@ app.get('/', (req, res) => {
 });
 app.use('/api', routes);
 app.listen(port, ()=> console.log(` server port ${port}`));
+module.exports = app

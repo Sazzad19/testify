@@ -1,6 +1,4 @@
 const db = require("../models");
-// const { sequelize, Sequelize } = require("../models");
-// const {User} = require("../models");
 const User = db.User;
 var jwt = require("jsonwebtoken");
 
@@ -10,7 +8,6 @@ const signIn = async (email, password)=> {
             if(data === null){
                 reject({success: false, message: "wrong username or password"})
             }else{
-                console.log("secret", process.env.API_SECRET)
                 var token = jwt.sign({
                     id: data.id
                   }, process.env.API_SECRET);
@@ -28,21 +25,6 @@ const signIn = async (email, password)=> {
             });
      })        
     })
-
-    // let data = await User.findOne({where: { email: email, password: password}}).then(data => {
-    //     if(data === null){
-    //        resolve({success: false, message: "wrong username or password"})
-    //     }else{
-    //         var token = jwt.sign({
-    //             id: data.id
-    //           }, process.env.API_SECRET);
-    //           data.token = token
-    //           resolve({
-    //             success: true,
-    //             result: data,
-    //             token: token
-    //         }) }
-    // }) 
 
 }
 

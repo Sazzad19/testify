@@ -3,17 +3,13 @@ const User = db.User;
 const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
 let signIn = require("../services/signin")
-
+let signUp = require("../services/signup")
 // Retrieve all Tutorials from the database.
 exports.signup = (req, res) => {
-    User.create(req.body).then(data => {
-        res.send({success: true, result: data})
+    signUp(req.body).then(data => {
+        res.send(data)
     }).catch(error =>{
-        res.status(500).send({
-            success: false,
-            message:
-            error.message || "Some error occurred while signup"
-          });
+        res.status(500).send(error);
     })
 }
 
